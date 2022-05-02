@@ -1,4 +1,4 @@
-/*using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -65,8 +65,8 @@ internal class OrdenamientoEREW
             Parallel.Invoke(() => {
                 mergeSort(L, ini, centro);
                 mergeSort(L, centro + 1, fin);
-                oddEvenMerge(L, ini, fin);
             });
+            oddEvenMerge(L, ini, fin);
         }
     }
 
@@ -120,13 +120,15 @@ internal class OrdenamientoEREW
             });
             int aux2 = fin - n;
 
-            Parallel.For(0, 1, f => {
+            intercala(L,odd,even,aux2,n);
+
+            /*Parallel.For(0, 1, f => {
                 for (int i = 1; i <= (n / 2); i++)
                 {
 
-                    intercala(L, odd, even, i, aux2);
+                    intercala(L, odd, even, i, aux2, n);
                 }
-            });
+            });*/
 
 
             for (int i = ini; i <= ((fin / 2) - 1); i++)
@@ -142,10 +144,19 @@ internal class OrdenamientoEREW
         }
 
     }
-    public static void intercala(int[] m, int[] odd, int[] even, int i, int aux)
+    public static void intercala(int[] m, int[] odd, int[] even, int aux, int n)
     {
-        m[(2 * i) - 1 + aux] = odd[i];
-        m[(2 * i) + aux] = even[i];
+        Parallel.For(0, 1, f => {
+                for (int i = 1; i <= (n / 2); i++)
+                {
+
+                    m[(2 * i) - 1 + aux] = odd[i];
+                    m[(2 * i) + aux] = even[i];
+                }
+            }
+        );
+        //m[(2 * i) - 1 + aux] = odd[i];
+        //m[(2 * i) + aux] = even[i];
     }
 
     public static void ShowVect(int g, int[] L)
@@ -165,4 +176,4 @@ internal class OrdenamientoEREW
         Console.Write("]\n\n");
 
     }
-}*/
+}

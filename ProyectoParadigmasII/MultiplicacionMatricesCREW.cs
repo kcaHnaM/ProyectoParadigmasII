@@ -6,23 +6,24 @@ using System.Threading;
 using System.Threading.Tasks;
 namespace MultiMatiz
 {
-    class Program
+    class MultiMatiz
     {
         public static int n;
         public static int[,] A, B;
         public static int[,,] C;
-        public static void Main(string[] args)
+        static async Task Main(String[] args)
         {
-            Console.WriteLine("----------------------------------------------------------");
-            Console.WriteLine("\n\t\tPráctica 7: MULTIPLICACIÓN DE MATRICES");
-            Console.WriteLine("\t\tEquipo 6: ");
-            Console.WriteLine("\t\tJuan Hereiva | Octavio Rodríguez | Isaac Vazquez\n");
-            Console.WriteLine("----------------------------------------------------------\n");
-
             n = 2;
             A = new int[n + 1, n + 1];
             B = new int[n + 1, n + 1];
             C = new int[n + 1, n + 1, n + 1];
+            MultiMatiz mm = new MultiMatiz();
+
+            Console.Clear();
+            Console.WriteLine("\t\tSUMA EREW\n\n"
+                                +"\tEquipo No Me Acuerdo xd\n");
+
+            Console.WriteLine("Espera un segundo...");
 
             string linea;
             Console.Write("Ingrese valor 1,1 de la matriz A: ");
@@ -53,13 +54,10 @@ namespace MultiMatiz
 
 
             Console.WriteLine("\nMatriz A: \n");
-            MuestraMat(A);
+            await mm.MuestraMat(A);
             Console.WriteLine();
             Console.WriteLine("Matriz B: \n");
-            MuestraMat(B);
-            Console.WriteLine();
-            Console.WriteLine("Presione cualquier tecla para continuar...\n");
-            Console.ReadKey();
+            await mm.MuestraMat(B);
 
             Parallel.For(1, n + 1, i =>
             {
@@ -91,36 +89,46 @@ namespace MultiMatiz
                     });
                 });
             }
+            
+            await mm.resultado();
 
-            resultado();
-
+            Console.WriteLine("\nPresione cualquier tecla para salir...");
             Console.ReadKey();
+            Console.Clear();
         }
 
 
-        static void MuestraMat(int[,] X)
+        async Task MuestraMat(int[,] X)
         {
-            for (int i = 1; i <= 2; i++)
-            {
-                for (int j = 1; j <= 2; j++)
-                {
-                    Console.Write(X[i, j] + " ");
+            await Task.Run(
+                ()=>{
+                    for (int i = 1; i <= 2; i++)
+                    {
+                        for (int j = 1; j <= 2; j++)
+                        {
+                            Console.Write(X[i, j] + " ");
+                        }
+                        Console.WriteLine();
+                    }
                 }
-                Console.WriteLine();
-            }
+            );
         }
 
-        public static void resultado()
+        public async Task resultado()
         {
-            Console.WriteLine("RESULTADO : \n");
-            for (int i = 1; i <= n; i++)
-            {
-                for (int j = 1; j <= n; j++)
-                {
-                    Console.Write(C[i, j, n] + " ");
+            await Task.Run(
+                ()=>{
+                    Console.WriteLine("RESULTADO: \n");
+                    for (int i = 1; i <= n; i++)
+                    {
+                        for (int j = 1; j <= n; j++)
+                        {
+                            Console.Write(C[i, j, n] + " ");
+                        }
+                        Console.WriteLine();
+                    }
                 }
-                Console.WriteLine();
-            }
+            );
         }
     }
 }*/
